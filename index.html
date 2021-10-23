@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html><head>
+<link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet">
+
+<style>    body{height:100vh;width:100vw;font-family: 'Chewy', cursive;font-size:8vw;background:url('https://i.pinimg.com/736x/81/55/03/81550360fbeb537a101771b7885b1dcf.jpg');background-size:100%;background-repeat:no-repeat;color:white;position:fixed;left:0;top:0;text-align:center;}
+#tp{
+width:100vw;position:fixed;
+left:0;top:40vh;color:white;
+-webkit-transition-property:top,color;
+-webkit-transition-duration:.7s; 
+-webkit-transition-timing-function: ease; 
+}
+
+#bt{
+width:100vw;position:fixed;
+left:0;top:calc(40vh + 100px);color:transparent;
+-webkit-transition-property:top,color;
+-webkit-transition-duration:.7s; 
+-webkit-transition-timing-function: ease; 
+}          </style>
+
+<script>
+    var audio=new Audio("https://www.dropbox.com/s/01xtvt5b4k3y17q/lenka%20-%20everything%20at%20once%20%282%29.mp3?dl=0&raw=1"),playing=false;
+
+var SRT=`﻿1
+00:00:06,830 --> 00:00:09,840
+As sly as a fox,
+as strong as an ox
+
+2
+00:00:09,890 --> 00:00:13,160
+As fast as a hare,
+as brave as a bear
+
+3
+00:00:13,192 --> 00:00:16,410
+As free as a bird,
+as neat as a word
+
+4
+00:00:16,483 --> 00:00:19,570
+As quiet as a mouse,
+as big as a house
+
+5
+00:00:20,140 --> 00:00:25,600
+All... I wanna be
+
+6
+00:00:26,670 --> 00:00:33,470
+All... I wanna be, ooh
+
+7
+00:00:33,500 --> 00:00:42,120
+All... I wanna be... is everything
+
+8
+00:00:43,200 --> 00:00:45,930
+As mean as a wolf,
+as sharp as a tooth
+
+9
+00:00:46,233 --> 00:00:49,520
+As deep as a bite,
+as dark as the night
+
+10
+00:00:49,580 --> 00:00:52,920
+As sweet as a song,
+as right as a wrong
+
+11
+00:00:52,940 --> 00:00:56,220
+As long as a road,
+as ugly as a toad
+
+12
+00:00:56,250 --> 00:00:59,930
+As pretty as a picture
+hanging from a fixture
+
+13
+00:00:59,930 --> 00:01:03,230
+Strong like a family,
+strong as I wanna be
+
+14
+00:01:03,250 --> 00:01:06,360
+Bright as day, as light as play
+
+15
+00:01:06,380 --> 00:01:09,820
+As hard as nails,
+as grand as a whale
+
+16
+00:01:09,880 --> 00:01:16,540
+All... I wanna be, ooh
+
+17
+00:01:16,550 --> 00:01:23,210
+All... I wanna be, aah
+
+18
+00:01:23,210 --> 00:01:31,020
+All... I wanna be... is everything
+
+19
+00:01:31,229 --> 00:01:34,760
+Everything at once
+
+20
+00:01:34,780 --> 00:01:37,950
+Everything at once
+
+21
+00:01:38,890 --> 00:01:41,020
+Aaaa oh
+
+22
+00:01:41,447 --> 00:01:44,709
+Everything at once
+
+23
+00:01:46,160 --> 00:01:49,248
+As warm as the sun,
+as silly as fun
+
+24
+00:01:49,250 --> 00:01:52,540
+As cool as a tree,
+as scary as the sea
+
+25
+00:01:52,570 --> 00:01:56,128
+As hot as fire,
+as cold as ice
+
+26
+00:01:56,128 --> 00:01:59,404
+Sweet as sugar and
+everything nice
+
+27
+00:01:59,410 --> 00:02:02,494
+As old as time,
+as straight as a line
+
+28
+00:02:02,680 --> 00:02:05,898
+As royal as a queen,
+as buzzed as a bee
+
+29
+00:02:06,130 --> 00:02:09,450
+As stealth as a tiger,
+as smooth as a glider
+
+30
+00:02:09,450 --> 00:02:12,727
+Pure as a melody,
+pure as I wanna be
+
+31
+00:02:12,860 --> 00:02:19,530
+All... I wanna be, ooh
+
+32
+00:02:19,530 --> 00:02:26,190
+All... I wanna be, aah
+
+33
+00:02:26,190 --> 00:02:34,400
+All... I wanna be... is everything
+
+34
+00:02:34,400 --> 00:02:37,830
+Everything at once
+`;
+
+const $=_=>{return document.getElementById(_)};
+
+const fade=(_)=>{
+$('bt').innerHTML=_;
+$('tp').style.WebkitTransitionDuration='.7s';
+$('tp').style.top='25vh';
+$('tp').style.color='transparent';    
+$('bt').style.WebkitTransitionDuration='.7s';
+$('bt').style.top='40vh';
+$('bt').style.color='white';  
+setTimeout(()=>{
+$('tp').style.WebkitTransitionDuration='0s'; 
+$('tp').style.top='calc(40vh + 150px)'},700)
+}
+
+const fade2=(_)=>{
+$('tp').innerHTML=_;
+$('bt').style.WebkitTransitionDuration='.7s';
+$('bt').style.top='25vh';
+$('bt').style.color='transparent';    
+$('tp').style.WebkitTransitionDuration='.7s';
+$('tp').style.top='40vh';
+$('tp').style.color='white';  
+setTimeout(()=>{
+$('bt').style.WebkitTransitionDuration='0s'; 
+$('bt').style.top='calc(40vh + 150px)'},700)
+}
+
+const ToScnd=time=>{t=time.split(':');
+return parseFloat(t[2])+parseFloat(t[1])*60}
+
+const Reader=(srt,time)=>{var now='&#119136; Music &#119136;';
+srt.split('\n\n').forEach(d1=>{d2=d1.split('\n');
+if(time>ToScnd(d2[1].split(' ')[0].split(',')[0])&&time<ToScnd(d2[1].split(' ')[2].split(',')[0])){now=d2[2]+'<br/>'+(d2[3]!=undefined?d2[3]:'')}});return now}
+
+
+//audio.currentTime=160;
+let xy="",z=0,start=true;
+window.onclick=()=>{
+if(!playing){
+var playPromise = audio.play();
+if (playPromise !== undefined) {
+  playPromise.then(function() {
+  }).catch(function(error) { });}
+
+
+playing=true;$('tp').innerHTML=Reader(SRT,audio.currentTime);$('bt').innerHTML=Reader(SRT,audio.currentTime);}else{
+var playPromise = audio.pause();
+if (playPromise !== undefined) {
+  playPromise.then(function() {
+  }).catch(function(error) { });}
+playing=false;$('tp').innerHTML="Audio pused<br>Tap to resume";$('bt').innerHTML="Audio pused<br>Tap to resume";}
+if(start)$('tp').innerHTML='Audio data loading...<br>Please wait';start=false
+}
+
+audio.ontimeupdate=()=>{
+if(xy!=Reader(SRT,audio.currentTime)){
+z%2==0?fade(Reader(SRT,audio.currentTime)):fade2(Reader(SRT,audio.currentTime));z++;
+}
+xy=Reader(SRT,audio.currentTime)
+}
+audio.onended=()=>{
+start=true;playing=false;xy="";
+$('tp').innerHTML="Audio Ended<br>Tap to replay";
+$('bt').innerHTML="Audio Ended<br>Tap to replay";
+}
+
+
+
+
+    
+    
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+</head><body>
+<canvas></canvas>
+<div id="tp">Tap to play</div> 
+<div id="bt"></div>
+<div style="top:50vh;;font-size:2.5vw;color:rgba(300,300,300,.5);text-align:center;position:fixed;top:90vh;left:0;width:100vw">Music lyrics<br> copyright SATISH</div>
+<script>
+"use strict"
+class Circle {
+constructor(x,y,r,c,v,e){
+this.x=x;
+this.y=y;
+this.r=r;
+this.c=c;
+this.v=v;
+this.e=e;
+this.a=.4;
+}
+draw(){this.sn+=.3
+       this.y-=this.v;
+       this.y<this.e?this.a-=.01:'';
+       san.beginPath();
+       san.arc(this.x,this.y,this.r,0,44/7,false);
+       san.fillStyle=`rgba(${this.c},170,200,${this.a})`;
+       san.fill()
+       san.closePath();
+}
+static push(n){var rad=Mnx(1,3),cx=Mnx(rad,W-rad),cy=n?Mnx(H+rad,H+rad+100):Mnx(H*1.2,H*.3),cl=Mnx(0,250),vl=Mnx(.5,1.5),en=Mnx(H*8,H*.2);
+return new Circle(cx,cy,rad,cl,vl,en)}
+}
+var Mnx=(n,x)=>{return Math.random()*(x-n)+n},W=window.innerWidth,H=window.innerHeight,san;
+var ar=[];
+for(var i=0;i<300;i++){
+ar.push(Circle.push(false))
+}
+
+var draw=()=>{for(var i=0;i<ar.length;i++){
+ar[i].draw();if(ar[i].a<0){ar[i]=Circle.push(true)};}}
+
+var can=document.querySelector('canvas');
+can.width=W;can.height=H;can.style.background='transparent';can.style.position='fixed';can.style.left=0;can.style.top=0;window.backdropFilter='blur(3px)';san=can.getContext('2d');
+var up=()=>{
+san.clearRect(0,0,W,H);
+draw();webkitRequestAnimationFrame(up);};
+webkitRequestAnimationFrame(up);    
+</script>
+</body></html>
